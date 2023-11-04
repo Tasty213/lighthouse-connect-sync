@@ -15,18 +15,6 @@ function LighthouseDedupe() {
   return (
     <div className="Process">
       <DuplicatesTable duplicates={dupes}></DuplicatesTable>
-      <CSVLink
-        data={dupes.map((dupe) => {
-          return {
-            firstName: dupe.members[0].firstName,
-            lastName: dupe.members[0].lastName,
-            postcode: dupe.members[0].postcode,
-            occurences: dupe.members.length,
-          };
-        })}
-      >
-        Download Results
-      </CSVLink>
       <Importer
         dataHandler={async (rows, { startIndex }) => {
           setMembers((members) => [

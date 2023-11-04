@@ -22,6 +22,18 @@ export function DuplicatesTable({ duplicates }: DuplicatesTableProps) {
           ))}
         </tbody>
       </table>
+      <CSVLink
+        data={duplicates.map((duplicate) => {
+          return {
+            firstName: duplicate.members[0].firstName,
+            lastName: duplicate.members[0].lastName,
+            postcode: duplicate.members[0].postcode,
+            occurences: duplicate.members.length,
+          };
+        })}
+      >
+        Download Results
+      </CSVLink>
     </div>
   );
 }
