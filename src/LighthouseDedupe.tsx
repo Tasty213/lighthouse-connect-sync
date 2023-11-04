@@ -33,6 +33,7 @@ export function LighthouseDedupe() {
     } else {
       return (
         <DataImporter
+          label="Lighthouse export"
           setUploadComplete={setComplete}
           setPeople={setMembers}
           callback={find_duped_members}
