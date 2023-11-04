@@ -3,19 +3,6 @@ import "react-csv-importer/dist/index.css";
 import { useState } from "react";
 import LighthouseDedupe from "./LighthouseDedupe";
 
-export type Member = {
-  firstName: string;
-  lastName: string;
-  postcode: string;
-  guid: string;
-  concatenated: string;
-};
-
-export type Duplicates = {
-  members: Member[];
-  concated: string;
-};
-
 enum Process {
   initial,
   lighthouse_dedupe,

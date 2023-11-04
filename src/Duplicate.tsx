@@ -1,4 +1,4 @@
-import { Duplicates } from "./App";
+import { Duplicates } from "./Types";
 
 type DuplicateProps = { duplicate: Duplicates };
 

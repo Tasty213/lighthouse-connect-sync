@@ -4,7 +4,7 @@ import "react-csv-importer/dist/index.css";
 import { useState } from "react";
 import { Duplicate } from "./Duplicate";
 import { CSVLink } from "react-csv";
-import { Member, Duplicates } from "./App";
+import { Member, Duplicates } from "./Types";
 
 function LighthouseDedupe() {
   const [members, setMembers] = useState<Member[]>([]);
