@@ -3,7 +3,7 @@ import "react-csv-importer/dist/index.css";
 import { useState } from "react";
 import { Member, DuplicateSet } from "./Types";
 import { DuplicatesTable } from "./DuplicatesTable";
-import { LighthouseImporter } from "./LighthouseImporter";
+import { DataImporter } from "./DataImporter";
 
 export function LighthouseDedupe() {
   const [members, setMembers] = useState<Member[]>([]);
@@ -32,11 +32,11 @@ export function LighthouseDedupe() {
       return <DuplicatesTable duplicates={dupes}></DuplicatesTable>;
     } else {
       return (
-        <LighthouseImporter
+        <DataImporter
           setUploadComplete={setComplete}
-          setMembers={setMembers}
+          setPeople={setMembers}
           callback={find_duped_members}
-        ></LighthouseImporter>
+        ></DataImporter>
       );
     }
   }
