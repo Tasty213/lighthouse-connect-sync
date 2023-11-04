@@ -5,7 +5,7 @@ import { Member, DuplicateSet } from "./Types";
 import { DuplicatesTable } from "./DuplicatesTable";
 import { LighthouseImporter } from "./LighthouseImporter";
 
-function LighthouseDedupe() {
+export function LighthouseDedupe() {
   const [members, setMembers] = useState<Member[]>([]);
   const [dupes, setDupedMembers] = useState<DuplicateSet[]>([]);
   const [complete, setComplete] = useState<boolean>(false);
@@ -27,14 +27,19 @@ function LighthouseDedupe() {
     setDupedMembers(dupes);
   }
 
-  return (
-    <div className="Process">
-      <DuplicatesTable duplicates={dupes}></DuplicatesTable>
-      <LighthouseImporter
-        setUploadComplete={setComplete}
-        setMembers={setMembers}
-        callback={find_duped_members}
-      ></LighthouseImporter>
-    </div>
-  );
+  function render_process() {
+    if (complete) {
+      return <DuplicatesTable duplicates={dupes}></DuplicatesTable>;
+    } else {
+      return (
+        <LighthouseImporter
+          setUploadComplete={setComplete}
+          setMembers={setMembers}
+          callback={find_duped_members}
+        ></LighthouseImporter>
+      );
+    }
+  }
+
+  return <div className="Process">{render_process()}</div>;
 }

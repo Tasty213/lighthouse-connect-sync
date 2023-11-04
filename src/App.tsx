@@ -1,7 +1,7 @@
 import "./App.css";
 import "react-csv-importer/dist/index.css";
 import { useState } from "react";
-import LighthouseDedupe from "./LighthouseDedupe";
+import { LighthouseDedupe } from "./LighthouseDedupe";
 import { ProcessSelector } from "./ProcessSelector";
 
 export enum Process {
@@ -32,7 +32,17 @@ function App() {
     }
   }
 
-  return <div className="App">{render_states()}</div>;
+  function reset_state() {
+    setCurrentProcess(Process.initial);
+  }
+
+  return (
+    <div className="App">
+      <label>Reset connect syncer</label>
+      <button onClick={() => reset_state()}>Reset</button>
+      {render_states()}
+    </div>
+  );
 }
 
 export default App;
