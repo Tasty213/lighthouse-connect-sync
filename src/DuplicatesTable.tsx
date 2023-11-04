@@ -11,10 +11,12 @@ export function DuplicatesTable({ duplicates }: DuplicatesTableProps) {
     <div>
       <table>
         <thead>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Postcode</th>
-          <th>Occurences</th>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Postcode</th>
+            <th>Occurences</th>
+          </tr>
         </thead>
         <tbody>
           {duplicates.map((item) => (
