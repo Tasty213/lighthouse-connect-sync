@@ -1,29 +1,20 @@
-import { Importer, ImporterField } from "react-csv-importer";
 import "./App.css";
 import "react-csv-importer/dist/index.css";
 import { useState } from "react";
-import { Duplicate } from "./Duplicate";
+import { Member, DuplicateSet } from "./Types";
+import { DuplicatesTable } from "./DuplicatesTable";
+import { LighthouseImporter } from "./LighthouseImporter";
+import { Importer, ImporterField } from "react-csv-importer";
 import { CSVLink } from "react-csv";
-import { Member, Duplicates } from "./Types";
 
 function LighthouseDedupe() {
   const [members, setMembers] = useState<Member[]>([]);
-  const [dupes, setDupedMembers] = useState<Duplicates[]>([]);
+  const [dupes, setDupedMembers] = useState<DuplicateSet[]>([]);
   const [complete, setComplete] = useState<boolean>(false);
 
   return (
     <div className="Process">
-      <table>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Postcode</th>
-          <th>Occurences</th>
-        </tr>
-        {dupes.map((item) => (
-          <Duplicate duplicate={item}></Duplicate>
-        ))}
-      </table>
+      <DuplicatesTable duplicates={dupes}></DuplicatesTable>
       <CSVLink
         data={dupes.map((dupe) => {
           return {
@@ -67,9 +58,9 @@ function LighthouseDedupe() {
 
 function find_duped_members(
   members: Member[],
-  setDupedMembers: React.Dispatch<Duplicates[]>
+  setDupedMembers: React.Dispatch<DuplicateSet[]>
 ) {
-  var dupes = [] as Duplicates[];
+  var dupes = [] as DuplicateSet[];
   var all_concatenated = new Set(members.map((member) => member.concatenated));
 
   all_concatenated.forEach((concated) => {

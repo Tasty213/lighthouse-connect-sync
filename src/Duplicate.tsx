@@ -1,14 +1,14 @@
-import { Duplicates } from "./Types";
+import { DuplicateSet } from "./Types";
 
-type DuplicateProps = { duplicate: Duplicates };
+type DuplicateProps = { duplicateSet: DuplicateSet };
 
-export function Duplicate({ duplicate }: DuplicateProps) {
+export function Duplicate({ duplicateSet }: DuplicateProps) {
   return (
     <tr>
-      <td>{duplicate.members[0].firstName}</td>
-      <td>{duplicate.members[0].lastName}</td>
-      <td>{duplicate.members[0].postcode}</td>
-      <td>{duplicate.members.length}</td>
+      <td>{duplicateSet.members[0].firstName}</td>
+      <td>{duplicateSet.members[0].lastName}</td>
+      <td>{duplicateSet.members[0].postcode}</td>
+      <td>{duplicateSet.members.length}</td>
     </tr>
   );
 }

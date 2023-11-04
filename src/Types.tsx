@@ -6,7 +6,7 @@ export type Member = {
   concatenated: string;
 };
 
-export type Duplicates = {
+export type DuplicateSet = {
   members: Member[];
   concated: string;
 };
