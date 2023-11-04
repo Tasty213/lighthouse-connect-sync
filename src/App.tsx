@@ -1,11 +1,9 @@
-import { Importer, ImporterField } from "react-csv-importer";
 import "./App.css";
 import "react-csv-importer/dist/index.css";
 import { useState } from "react";
-import { Duplicate } from "./Duplicate";
-import { CSVDownload, CSVLink } from "react-csv";
+import LighthouseDedupe from "./LighthouseDedupe";
 
-type Member = {
+export type Member = {
   firstName: string;
   lastName: string;
   postcode: string;
@@ -18,81 +16,64 @@ export type Duplicates = {
   concated: string;
 };
 
-function App() {
-  const [members, setMembers] = useState<Member[]>([]);
-  const [dupes, setDupedMembers] = useState<Duplicates[]>([]);
-  const [complete, setComplete] = useState(false);
-
-  return (
-    <div className="App">
-      <table>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Postcode</th>
-          <th>Occurences</th>
-        </tr>
-        {dupes.map((item) => (
-          <Duplicate duplicate={item}></Duplicate>
-        ))}
-      </table>
-      <CSVLink
-        data={dupes.map((dupe) => {
-          return {
-            firstName: dupe.members[0].firstName,
-            lastName: dupe.members[0].lastName,
-            postcode: dupe.members[0].postcode,
-            occurences: dupe.members.length,
-          };
-        })}
-      >
-        Download Results
-      </CSVLink>
-      <Importer
-        dataHandler={async (rows, { startIndex }) => {
-          setMembers((members) => [
-            ...members,
-            ...rows.map((row) => {
-              return {
-                firstName: row.firstName,
-                lastName: row.lastName,
-                postcode: row.postcode,
-                guid: crypto.randomUUID(),
-                concatenated: `${row.firstName}${row.lastName}${row.postcode}`,
-              } as Member;
-            }),
-          ]);
-          console.log(rows);
-        }}
-        onComplete={(info) => {
-          setComplete(true);
-          find_duped_members(members, setDupedMembers);
-        }}
-      >
-        <ImporterField name="firstName" label="firstname"></ImporterField>
-        <ImporterField name="lastName" label="lastname"></ImporterField>
-        <ImporterField name="postcode" label="primary_postcode"></ImporterField>
-      </Importer>
-    </div>
-  );
+enum Process {
+  initial,
+  lighthouse_dedupe,
+  connect_match,
 }
 
-function find_duped_members(
-  members: Member[],
-  setDupedMembers: React.Dispatch<Duplicates[]>
-) {
-  var dupes = [] as Duplicates[];
-  var all_concatenated = new Set(members.map((member) => member.concatenated));
+function App() {
+  const [current_process, setCurrentProcess] = useState<Process>(
+    Process.initial
+  );
 
-  all_concatenated.forEach((concated) => {
-    var duplicates = members.filter(
-      (member) => member.concatenated === concated
-    );
-    if (duplicates.length > 1) {
-      dupes.push({ members: duplicates, concated: concated });
+  function render_states() {
+    switch (current_process) {
+      case Process.initial:
+        return (
+          <form onSubmit={(e) => handle_submit(e)}>
+            <label>
+              Select the process you want to do:
+              <select name="process_selector">
+                <option
+                  value={Process[Process.lighthouse_dedupe]}
+                  key={Process.lighthouse_dedupe}
+                >
+                  Lighthouse deduplicate
+                </option>
+                <option
+                  value={Process[Process.connect_match]}
+                  key={Process.connect_match}
+                >
+                  Connect Match
+                </option>
+              </select>
+            </label>
+            <label>
+              <button>Submit</button>
+            </label>
+          </form>
+        );
+
+      case Process.lighthouse_dedupe:
+        return <LighthouseDedupe></LighthouseDedupe>;
+
+      default:
+        return <p>Something went wrong please hit resset</p>;
     }
-  });
-  setDupedMembers(dupes);
+  }
+
+  function handle_submit(event: React.SyntheticEvent) {
+    event.preventDefault();
+    const form_data = event.target as typeof event.target & {
+      process_selector: { value: string };
+    };
+    setCurrentProcess(
+      Process[form_data.process_selector.value as keyof typeof Process]
+    );
+  }
+
+  return <div className="App">{render_states()}</div>;
 }
 
 export default App;
