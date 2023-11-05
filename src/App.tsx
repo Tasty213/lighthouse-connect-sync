@@ -3,6 +3,7 @@ import "react-csv-importer/dist/index.css";
 import { useState } from "react";
 import { LighthouseDedupe } from "./LighthouseDedupe";
 import { ProcessSelector } from "./ProcessSelector";
+import { ConnectMatch } from "./ConnectMatch";
 
 export enum Process {
   initial,
@@ -26,6 +27,9 @@ function App() {
 
       case Process.lighthouse_dedupe:
         return <LighthouseDedupe></LighthouseDedupe>;
+
+      case Process.connect_match:
+        return <ConnectMatch></ConnectMatch>;
 
       default:
         return <p>Something went wrong please hit resset</p>;
