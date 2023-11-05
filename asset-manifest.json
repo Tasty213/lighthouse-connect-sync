@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/lighthouse-connect-sync/static/css/main.42568ccb.css",
-    "main.js": "/lighthouse-connect-sync/static/js/main.6e793049.js",
+    "main.js": "/lighthouse-connect-sync/static/js/main.7be569d9.js",
     "static/js/787.1024a04b.chunk.js": "/lighthouse-connect-sync/static/js/787.1024a04b.chunk.js",
     "index.html": "/lighthouse-connect-sync/index.html",
     "main.42568ccb.css.map": "/lighthouse-connect-sync/static/css/main.42568ccb.css.map",
-    "main.6e793049.js.map": "/lighthouse-connect-sync/static/js/main.6e793049.js.map",
+    "main.7be569d9.js.map": "/lighthouse-connect-sync/static/js/main.7be569d9.js.map",
     "787.1024a04b.chunk.js.map": "/lighthouse-connect-sync/static/js/787.1024a04b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.42568ccb.css",
-    "static/js/main.6e793049.js"
+    "static/js/main.7be569d9.js"
   ]
 }
